@@ -1,4 +1,4 @@
-ï»¿/*é¡ºåºè¡¨ç›¸å…³æ“ä½œ*/
+/*Ë³Ğò±íÏà¹Ø²Ù×÷*/
 
 #ifndef SEQUENCELIST_H
 #define SEQUENCELIST_H
@@ -7,11 +7,11 @@
 #include <stdlib.h>
 #include "../../01intro/Status.h"
 
-/*å®å®šä¹‰*/
+/*ºê¶¨Òå*/
 #define LIST_INIT_SIZE 100
 #define LISTINCREMENT 10
 
-/*é¡ºåºè¡¨ç±»å‹å®šä¹‰*/
+/*Ë³Ğò±íÀàĞÍ¶¨Òå*/
 #ifndef LELEMTYPE_SQ
 #define LELEMTYPE_SQ
 typedef int LElemType_Sq;
@@ -19,34 +19,34 @@ typedef int LElemType_Sq;
 
 typedef struct
 {
-	LElemType_Sq *elem;//é¡ºåºè¡¨å­˜å‚¨ç©ºé—´åŸºå€
+	LElemType_Sq *elem;//Ë³Ğò±í´æ´¢¿Õ¼ä»ùÖ·
 	int length;
 	int listsize; 
 }SqList;
 
-/*å‡½æ•°åˆ—è¡¨*/
-Status InitList_Sq(SqList *L);//åˆå§‹åŒ–ç©ºé¡ºåºè¡¨
+/*º¯ÊıÁĞ±í*/
+Status InitList_Sq(SqList *L);//³õÊ¼»¯¿ÕË³Ğò±í
 
-void ClearList_Sq(SqList *L);//æ¸…ç©ºé¡ºåºè¡¨
+void ClearList_Sq(SqList *L);//Çå¿ÕË³Ğò±í
 
-void DestroyList_Sq(SqList *L);//é”€æ¯é¡ºåºè¡¨
+void DestroyList_Sq(SqList *L);//Ïú»ÙË³Ğò±í
 
-Status ListEmpty_Sq(SqList L);//åˆ¤æ–­é¡ºåºè¡¨æ˜¯å¦ä¸ºç©º
+Status ListEmpty_Sq(SqList L);//ÅĞ¶ÏË³Ğò±íÊÇ·ñÎª¿Õ
 
-int ListLength_Sq(SqList L);//è¿”å›é¡ºåºè¡¨å…ƒç´ ä¸ªæ•°
+int ListLength_Sq(SqList L);//·µ»ØË³Ğò±íÔªËØ¸öÊı
 
-Status GetElem_Sq(SqList L, int i, LElemType_Sq *e);//è·å¾—é¡ºåºè¡¨ç¬¬iä¸ªå…ƒç´ ï¼Œç”¨åŸºå€eæ¥æ”¶ 
+Status GetElem_Sq(SqList L, int i, LElemType_Sq *e);//»ñµÃË³Ğò±íµÚi¸öÔªËØ£¬ÓÃ»ùÖ·e½ÓÊÕ 
 
-int LocateElem_Sq(SqList L, LElemType_Sq e, Status(Compare)(LElemType_Sq, LElemType_Sq));//è¿”å›é¡ºåºè¡¨ä¸­ä¸eæ»¡è¶³æŸç§æ¯”è¾ƒå…³ç³»(compareæ–¹æ³•å®šä¹‰è¿™ç§å…³ç³»)çš„å…ƒç´ çš„ä½å­
+int LocateElem_Sq(SqList L, LElemType_Sq e, Status(Compare)(LElemType_Sq, LElemType_Sq));//·µ»ØË³Ğò±íÖĞÓëeÂú×ãÄ³ÖÖ±È½Ï¹ØÏµ(compare·½·¨¶¨ÒåÕâÖÖ¹ØÏµ)µÄÔªËØµÄÎ»×Ó
 
-Status PriorElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *pre_e);//è·å¾—cur_eçš„å‰é©±ï¼Œç”¨pre_eæ¥æ”¶
+Status PriorElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *pre_e);//»ñµÃcur_eµÄÇ°Çı£¬ÓÃpre_e½ÓÊÕ
 
-Status NextElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *next_e);//è·å¾—åç»§
+Status NextElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *next_e);//»ñµÃºó¼Ì
 
-Status ListInsert_Sq(SqList *L, int i, LElemType_Sq e);//åœ¨ç¬¬iä¸ªä½å­æ’å…¥å…ƒç´ e
+Status ListInsert_Sq(SqList *L, int i, LElemType_Sq e);//ÔÚµÚi¸öÎ»×Ó²åÈëÔªËØe
 
-Status ListDelete_Sq(SqList *L, int i, LElemType_Sq *e);//åˆ é™¤ç¬¬iä¸ªå…ƒç´ ï¼Œå¹¶ä¿å­˜åœ¨åŸºå€eï¼Œè¿”å›ä¹‹
+Status ListDelete_Sq(SqList *L, int i, LElemType_Sq *e);//É¾³ıµÚi¸öÔªËØ£¬²¢±£´æÔÚ»ùÖ·e£¬·µ»ØÖ®
 
-Status ListTraverse_Sq(SqList L, void(Visit)(LElemType_Sq));//ç”¨visitæ–¹æ³•è®¿é—®é¡ºåºè¡¨ 
+Status ListTraverse_Sq(SqList L, void(Visit)(LElemType_Sq));//ÓÃvisit·½·¨·ÃÎÊË³Ğò±í 
 
 #endif

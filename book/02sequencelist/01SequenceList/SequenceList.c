@@ -1,4 +1,4 @@
-﻿#ifndef SEQUENCELIST_C
+#ifndef SEQUENCELIST_C
 #define SEQUENCELIST_C
 
 #include "SequenceList.h"

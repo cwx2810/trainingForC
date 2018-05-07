@@ -1,9 +1,9 @@
-ï»¿/*ç›¸å…³çŠ¶æ€ç åŠå®å‡½æ•°åˆ—è¡¨*/
+/*Ïà¹Ø×´Ì¬Âë¼°ºêº¯ÊıÁĞ±í*/
 
 #ifndef STATUS_H
 #define STATUS_H
 
-/*çŠ¶æ€ç */
+/*×´Ì¬Âë*/
 #define TRUE 1
 #define FALSE 0
 #define YES 1
@@ -23,20 +23,20 @@
 #define NULL ((void*)0)
 #endif
 
-/*çŠ¶æ€ç è¯†åˆ«ç±»å‹*/
+/*×´Ì¬ÂëÊ¶±ğÀàĞÍ*/
 typedef int Status;
 
-/*å®å‡½æ•°*/
-//å‡½æ•°æš‚åœä¸€æ®µæ—¶é—´
+/*ºêº¯Êı*/
+//º¯ÊıÔİÍ£Ò»¶ÎÊ±¼ä
 #define Wait(x)\
 {\
 	double _Loop_Num_;\
 	for(_Loop_Num_=0.01; _Loop_Num_<=100000.0*x; _Loop_Num_+=0.01);\
 } 
 
-//Enteré”®ç»§ç»­
+//Enter¼ü¼ÌĞø
 #define PressEnter\
-{\
+ {\
 	fflush(stdin);\
 	printf("Press Enter...");\
 	getchar();\

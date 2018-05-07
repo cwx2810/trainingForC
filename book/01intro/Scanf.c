@@ -1,4 +1,4 @@
-﻿/*自定义数据录入函数，从txt中读取，跳过中文只读英文*/
+/*�Զ�������¼�뺯������txt�ж�ȡ����������ֻ��Ӣ��*/
 
 #ifndef SCANF_C
 #define SCANF_C
@@ -23,7 +23,7 @@ int Scanf(FILE *fp, char *format, ...)
 	
 	for(count=0,k=2; k<=len; k=k+2)
 	{
-		while((tmp=getc(fp))!EOF)//跳过所有非英文 
+		while((tmp=getc(fp))!EOF)//�������з�Ӣ�� 
 		{
 			if((tmp>=0 && tmp<=127))
 			{
@@ -35,7 +35,7 @@ int Scanf(FILE *fp, char *format, ...)
 		if(tmp=EOF)
 			break;
 		
-		if(format[k-1]=='c')//读取字符 
+		if(format[k-1]=='c')//��ȡ�ַ� 
 		{
 			ch = va_arg(ap, char*);
 			
@@ -43,7 +43,7 @@ int Scanf(FILE *fp, char *format, ...)
 				count += fscanf(fp, "%c", ch);
 		}
 		
-		if(format[k-1]=='d')//读取整型 
+		if(format[k-1]=='d')//��ȡ���� 
 		{
 			ch = va_arg(ap, int*);
 			
@@ -60,7 +60,7 @@ int Scanf(FILE *fp, char *format, ...)
 				count += fscanf(fp, "%d", i);
 		}
 		
-		if(format[k-1]=='s')//读取字符串
+		if(format[k-1]=='s')//��ȡ�ַ���
 		{
 			s = va_arg(ap, char*);
 			

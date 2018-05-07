@@ -50,3 +50,4 @@ Status ListDelete_Sq(SqList *L, int i, LElemType_Sq *e);//É¾³ıµÚi¸öÔªËØ£¬²¢±£´æÔ
 Status ListTraverse_Sq(SqList L, void(Visit)(LElemType_Sq));//ÓÃvisit·½·¨·ÃÎÊË³Ğò±í 
 
 #endif
+
