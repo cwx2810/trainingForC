@@ -20,8 +20,8 @@ typedef int LElemType_Sq;
 typedef struct
 {
 	LElemType_Sq *elem;//顺序表存储空间基址
-	int length;
-	int listsize; 
+	int length;//length是指顺序表中有效数据的长度 
+	int listsize; //listSize是指顺序表大小，也许顺序表中没有数据，但大小也可以是100 
 }SqList;
 
 /*函数列表*/
