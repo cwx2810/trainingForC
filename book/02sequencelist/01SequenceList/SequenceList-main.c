@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	
 	printf("ListInsert测试...\n");
 	{
-		for(i=0;i<=6;i++)
+		for(i=1;i<=6;i++)
 		{
 			printf("在顺序表第%d个位子插入%d\n",i,2*i);
 			ListInsert_Sq(&L,i,2*i);

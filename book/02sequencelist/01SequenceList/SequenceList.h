@@ -19,7 +19,7 @@ typedef int LElemType_Sq;
 
 typedef struct
 {
-	LElemType_Sq *elem;//顺序表存储空间基址
+	int *elem;//顺序表存储空间基址
 	int length;//length是指顺序表中有效数据的长度 
 	int listsize; //listSize是指顺序表大小，也许顺序表中没有数据，但大小也可以是100 
 }SqList;
@@ -27,9 +27,9 @@ typedef struct
 /*函数列表*/
 Status InitList_Sq(SqList *L);//初始化空顺序表
 
-void ClearList_Sq(SqList *L);//清空顺序表
+int ClearList_Sq(SqList *L);//清空顺序表
 
-void DestroyList_Sq(SqList *L);//销毁顺序表
+int DestroyList_Sq(SqList *L);//销毁顺序表
 
 Status ListEmpty_Sq(SqList L);//判断顺序表是否为空
 

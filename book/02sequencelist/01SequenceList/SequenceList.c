@@ -3,34 +3,34 @@
 
 #include "SequenceList.h"
 
-Status InitList_Sq(SqList *L)
+int InitList_Sq(SqList *L)
 {
-	(*L).elem = (LElemType_Sq*)malloc(LIST_INIT_SIZE*sizeof(LElemType_Sq));
+	(*L).elem = (int*)malloc(100*sizeof(int));
 	if(!(*L).elem)
-		exit(OVERFLOW);
-		
+		return 0;
 	(*L).length = 0;
-	(*L).listsize = LIST_INIT_SIZE;
-	
-	return OK;
+	(*L).listsize = 100;
+	return 1;
 }
 
-void ClearList_Sq(SqList *L)
+int ClearList_Sq(SqList *L)
 {
 	(*L).length = 0;
+	return 1;
 }
 
-void DestroyList_Sq(SqList *L)
+int DestroyList_Sq(SqList *L)
 {
-	free((*L).elem);//垃圾回收，避免内存泄漏 
-	(*L).elem = NULL;//野指针回收 
+	free((*L).elem);
+	(*L).elem = NULL;
 	(*L).length = 0;
 	(*L).listsize = 0;
+	return 1;
 }
 
-Status ListEmpty_Sq(SqList L)
+int ListEmpty_Sq(SqList L)
 {
-	return L.length==0 ? TRUE : FALSE;
+	return L.length == 0 ? 1 : 0;
 }
 
 int ListLength_Sq(SqList L)
@@ -38,107 +38,82 @@ int ListLength_Sq(SqList L)
 	return L.length;
 }
 
-Status GetElem_Sq(SqList L, int i, LElemType_Sq *e)
+int GetElem_Sq(SqList L, int i, int *e)
 {
 	if(i<1 || i>L.length)
-		return ERROR;
-	else
-		*e = L.elem[i-1];
-		
-	return OK;
+		return 0;
+	*e = L.elem[i-1];
+	return 1;
 }
 
-int LocateElem_Sq(SqList L, LElemType_Sq e, Status(Compare)(LElemType_Sq, LElemType_Sq))
+int LocateElem_Sq(SqList L, int e, int(Compare)(int ,int))
 {
 	int i = 1;
-	while(i<L.length && !Compare(e, L.elem[i-1]))
+	while (i<=L.length && !Compare(e, L.elem[i-1]))
 		++i;
 	if(i<=L.length)
 		return i;
-	else
-		return 0;
+	return 0;
 }
 
-Status PriorElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *pre_e)
+int PriorElem_Sq(SqList L, int cur_e, int *pre_e)
+{
+	int i = 2;
+	while(i<=L.length && cur_e!=L.elem[i-1])
+		++i;
+	if(i<=L.length)
+		*pre_e = L.elem[i-2];
+		return 1;
+	return 0;
+}
+
+int NextElem_Sq(SqList L, int cur_e, int *next_e)
 {
 	int i = 1;
-	if(L.elem[0]!=cur_e)//第一个元素没有前驱 
-	{
-		while(i<L.length && L.elem[i]!=cur_e)//遍历下标直到找到当前元素下标 
-			++i;
-		if(i<L.length)
-		{
-			*pre_e = L.elem[i-1];
-			return OK;
-		}	
-	}
-	return ERROR;
-}
-
-Status NextElem_Sq(SqList L, LElemType_Sq cur_e, LElemType_Sq *next_e)
-{
-	int i = 0;
-	while(i<L.length && L.elem[i]!=cur_e)
+	while(i<L.length && cur_e!=L.elem[i-1])
 		++i;
-	if(i<L.length-1)
-	{
-		*next_e = L.elem[i+1];
-		return OK;
-	}
-	return ERROR;
+	if(i<L.length)
+		*next_e = L.elem[i];
+		return 1;
+	return 0;	
 }
 
-Status ListInsert_Sq(SqList *L, int i, LElemType_Sq e)
+int ListInsert_Sq(SqList *L, int i, int e)
 {
-	LElemType_Sq *newbase;
-	LElemType_Sq *p,*q;
-	//边界检查 
-	if(i<1||i>(*L).length+1)
-	{
-		return ERROR;
-	}
-	//增加空间 
+	int *newbase;
+	if(i<1 || i>(*L).length+1)
+		return 0;
 	if((*L).length>=(*L).listsize)
 	{
-		newbase = (LElemType_Sq*)realloc((*L).elem, ((*L).listsize+LISTINCREMENT)*sizeof(LElemType_Sq));
-		if(!newbase)
-			exit(OVERFLOW);
+		newbase = (int*)realloc((*L).elem, ((*L).listsize+10)*sizeof(int));
+		if (!newbase)
+			return 0;
 		(*L).elem = newbase;
-		(*L).listsize+=LISTINCREMENT;
-	}
-	//元素后移 
-	q = &(*L).elem[i-1];
-	for(p=&(*L).elem[(*L).length-1];p>=q;--p)
-		*(p+1)=*p;
-	*q = e;
+		(*L).listsize+=10;
+	}	
+	for(int j=(*L).length; j>=i; --j)
+		(*L).elem[j]=(*L).elem[j-1];
+	(*L).elem[i-1] = e;
 	(*L).length++;
-	return OK;
+	return 1;
 }
 
-Status ListDelete_Sq(SqList *L, int i, LElemType_Sq *e)
+int ListDelete_Sq(SqList *L, int i, int *e)
 {
-	LElemType_Sq *p;
-	if(i<1||i>(*L).length)
-	{
-		return ERROR;
-	}
+	if(i<1 || i>(*L).length)
+		return 0;
 	*e = (*L).elem[i-1];
-	for(p=&(*L).elem[i];p<=&(*L).elem[(*L).length-1];++p)
-	{
-		*(p-1) = *p;
-	}
+	for(int j=i+1; j<=(*L).length; ++j)
+		(*L).elem[j-2] = (*L).elem[j-1];
 	(*L).length--;
-	return OK;
+	return 1;
 }
 
-Status ListTraverse_Sq(SqList L, void(Visit)(LElemType_Sq))
+int ListTraverse_Sq(SqList L, void(Visit)(int))
 {
-	int i;
-	for(i=0;i<L.length;i++)
-		Visit(L.elem[i]);
-	return OK;
+	for(int i=1; i<=L.length; i++)
+		Visit(L.elem[i-1]);
+	return 1;
 }
-
-
 
 #endif
