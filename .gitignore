@@ -1,0 +1,9 @@
+*.LIB
+*.txt
+*.o
+*.exe
+
+
+Debug/
+Release/
+obj/
