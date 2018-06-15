@@ -2,6 +2,8 @@
 *.txt
 *.o
 *.exe
+*.h~
+*.c~
 
 
 Debug/
