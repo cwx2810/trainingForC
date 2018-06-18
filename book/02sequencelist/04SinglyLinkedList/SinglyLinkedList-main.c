@@ -109,6 +109,32 @@ int main(int argc, char **argv)
 	}
 	PressEnter;
 	
+	printf("Õ∑≤Â∑®≤‚ ‘...\n");
+	{
+		FILE *fp;
+		LNode* L;
+		printf("L = ");
+		fp = fopen("TestData_HL.txt", "r");
+		CreateList_HL(fp, &L, 5);
+		fclose(fp);
+		ListTraverse_L(L, PrintElem);
+		printf("\n\n");
+	}
+	PressEnter;
+	
+	printf("Œ≤≤Â∑®≤‚ ‘...\n");
+	{
+		FILE *fp;
+		LNode* L;
+		printf("L = ");
+		fp = fopen("TestData_TL.txt", "r");
+		CreateList_TL(fp, &L, 5);
+		fclose(fp);
+		ListTraverse_L(L, PrintElem);
+		printf("\n\n");
+	}
+	PressEnter;
+	
 
 	
 	return 0;

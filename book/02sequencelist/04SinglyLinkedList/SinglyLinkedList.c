@@ -141,7 +141,7 @@ int ListInsert_L(LNode* L, int i, int e)
 	if(p==NULL || j>i)//前面都是检查L和i的合法性，因为链表不能直接得出长度，要遍历 
 		return 0;
 		
-	LNode* s = (LNode*)malloc(sizeof(LNode));
+	LNode* s = (LNode*)malloc(sizeof(LNode));//给e建立存储小结构 
 	if(!s)
 		return 0;
 	s->data = e;
@@ -181,6 +181,58 @@ int ListTraverse_L(LNode* L, void(Visit)(int))
 		Visit(p->data);
 		p = p->next;
 	}
+	return 1;
+}
+
+int CreateList_HL(FILE *fp, LNode **L, int n)
+{
+	(*L) = (LNode*)malloc(sizeof(LNode));
+	if(!(*L))
+		return 0;
+	(*L)->next = NULL;//以上是初始化头结点空间
+	
+	int tmp;
+	for(int i=1; i<=n; i++)
+	{
+		if(Scanf(fp, "%d", &tmp)==1)
+		{
+			LNode* p = (LNode*)malloc(sizeof(LNode));//给插入的数据建立小结构 
+			if(!p)
+				return 0;
+			p->data = tmp;
+			p->next = (*L)->next;//头插
+			(*L)->next = p; 
+		}
+		else
+			return 0;
+	} 
+	return 1;
+}
+
+int CreateList_TL(FILE *fp, LNode **L, int n)
+{
+	(*L) = (LNode*)malloc(sizeof(LNode));
+	if(!(*L))
+		return 0;
+	(*L)->next = NULL;
+	
+	int tmp;
+	LNode* r = *L;//尾指针
+	for(int i=1; i<=n; i++)
+	{
+		if(Scanf(fp, "%d", &tmp)==1)
+		{
+			LNode* p = (LNode*)malloc(sizeof(LNode));//给插入的数据建立小结构 
+			if(!p)
+				return 0;
+			p->data = tmp;
+			r->next = p;
+			r = r->next;
+		}
+		else
+			return 0;
+	} 
+	r->next = NULL;
 	return 1;
 }
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../../01intro/Status.h"
-//#include "../../01intro/Scanf.c"
+#include "../../01intro/Scanf.c"
 
 typedef struct LNode
 {
@@ -35,4 +35,6 @@ int ListDelete_L(LNode* L, int i, int *e);
 
 int ListTraverse_L(LNode* L, void(Visit)(int));
 
+int CreateList_HL(FILE *fp, LNode **L, int n);
 
+int CreateList_TL(FILE *fp, LNode **L, int n);

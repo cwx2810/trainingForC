@@ -23,7 +23,7 @@ int Scanf(FILE *fp, char *format, ...)
 	
 	for(count=0,k=2; k<=len; k=k+2)
 	{
-		while((tmp=getc(fp))!EOF)//跳过所有非英文 
+		while((tmp=getc(fp))!=EOF)//跳过所有非英文 
 		{
 			if((tmp>=0 && tmp<=127))
 			{
@@ -32,22 +32,22 @@ int Scanf(FILE *fp, char *format, ...)
 			}
 		}
 		
-		if(tmp=EOF)
+		if(tmp==EOF)
 			break;
 		
 		if(format[k-1]=='c')//读取字符 
 		{
 			ch = va_arg(ap, char*);
 			
-			if(tmp!EOF)
+			if(tmp!=EOF)
 				count += fscanf(fp, "%c", ch);
 		}
 		
 		if(format[k-1]=='d')//读取整型 
 		{
-			ch = va_arg(ap, int*);
+			i = va_arg(ap, int*);
 			
-			while((tmp=getc(fp))!EOF)
+			while((tmp=getc(fp))!=EOF)
 			{
 				if((tmp>='0' && tmp<='9') || tmp=='-' || tmp=='+')
 				{
@@ -64,14 +64,14 @@ int Scanf(FILE *fp, char *format, ...)
 		{
 			s = va_arg(ap, char*);
 			
-			while((tmp=getc(fp))!EOF && (!isprint(tmp) || tmp==' '))
+			while((tmp=getc(fp))!=EOF && (!isprint(tmp) || tmp==' '))
 				;
 			
 			n=0;
 			if(!feof(fp))
 			{
 				ungetc(tmp, fp);
-				while((tmp=getc(fp))!EOF)
+				while((tmp=getc(fp))!=EOF)
 				{
 					if(isprint(tmp) && tmp!=' ')
 						s[n+1] = tmp;
@@ -93,3 +93,4 @@ int Scanf(FILE *fp, char *format, ...)
 }
 
 #endif
+
