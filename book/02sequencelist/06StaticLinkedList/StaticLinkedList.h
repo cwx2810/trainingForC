@@ -5,8 +5,8 @@
 typedef struct
 {
 	int data;
-	int cur;//游标，模拟单链表的结构指针 
-}Space[100];
+	int pnext;//游标，模拟单链表的结构指针 
+}Space[1000];//实际上SPACE是个数组，用数组承载模拟的动态空间 
 
 Space SPACE;
 
@@ -37,7 +37,7 @@ int NextElem_SL(int L, int cur_e, int *next_e);
 
 int ListInsert_SL(int L, int i, int e);
 
-int ListDelete_SL(int L, int i, ine *e);
+int ListDelete_SL(int L, int i, int *e);
 
 int ListTraverse_SL(int L, void(Visit)(int));
 
