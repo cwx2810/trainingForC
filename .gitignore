@@ -1,5 +1,4 @@
 *.LIB
-*.txt
 *.o
 *.exe
 *.h~
