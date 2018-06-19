@@ -101,6 +101,14 @@ int main(int argc, char **argv)
 	}
 	PressEnter;
 	
+	printf("GetElemPtr测试...\n");
+	{
+		DNode* p = GetElemPtr_DL(L, 3);
+		printf("链表第3个节点的指针为 0x%x，其对应的值为%d", p, *p);
+		printf("\n\n");
+	}
+	PressEnter;
+	
 	printf("ClearList测试...\n");
 	{
 		ClearList_DL(L);
