@@ -86,7 +86,9 @@ int MazePath(int maze[][15], MazePos start, MazePos end)
 				
 				while(info.direction==Up && !StackEmpty_Sq(S))//上一块四面都访问过了，就再回到上一块，默认顺时针访问 
 				{
-					MarkPrint(maze, curPos);//设置此路不通 
+					MarkPrint(maze, info.pos);//设置此路不通 
+					ShowMaze(maze);
+					
 					Pop_Sq(&S, &info);//再返回上一块 
 				} 
 				
