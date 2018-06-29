@@ -9,8 +9,8 @@ int main(int argc, char **argv)
 	StrAssign_Sq(T, t);
 	
 	int Tlength = StrLength_Sq(T);
-	int next[Tlength+1];
-	int nextval[Tlength+1];
+	int next[Tlength];
+	int nextval[Tlength];
 	get_next(T, next);
 	get_nextval(T, nextval);
 	
