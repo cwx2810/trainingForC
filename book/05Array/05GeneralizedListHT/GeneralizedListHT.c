@@ -56,16 +56,16 @@ int CreateGList_HT(GLNode **L, SString S)
 		{
 			(*L)->type = List;
 			(*L)->mark = 0; //
-			GLNode* p = *L; //不影响广义表本身，新建一个p 
+			GLNode* p = *L; //保存最初始的L为p，以便改变了L但是后面还能用原来的L 
 			SString sub;
-			SubString_Sq(sub, S, 2, StrLength_Sq(S)-2);//去掉最外层的括号
+			SubString_Sq(sub, S, 2, StrLength_Sq(S)-2);//去掉L最外层的括号，得到没有括号的广义表sub，L变成了sub 
 			SString hsub;
 			GLNode* q;
 			do
 			{
-				sever_GL(hsub, sub);//分离出表头
+				sever_GL(hsub, sub);//分离出sub的表头，sub变成了sub的表尾，也就是L已经变成了sub的表尾 
 				CreateGList_HT(&(p->Union.ptr.hp), hsub);//在表头重复创建子广义表
-				q = p;//再建立一个同样的没有括号的q 
+				q = p;//保存有完整表头没有表尾的状态为q，也就是q代表本轮循环的最终的表头 
 				if(!StrEmpty_Sq(sub))//处理表尾 
 				{
 					p = (GLNode*)malloc(sizeof(GLNode));
@@ -74,10 +74,10 @@ int CreateGList_HT(GLNode **L, SString S)
 					
 					p->type = List;
 					p->mark = 0;
-					q->Union.ptr.tp = p;
+					q->Union.ptr.tp = p;//连接表尾，然后再循环创建表尾的表头 
 				} 
 			}while(!StrEmpty_Sq(sub));
-			q->Union.ptr.tp = NULL;//最后的表尾置空 
+			q->Union.ptr.tp = NULL;//最后表尾没了，置空 
 		} 
 	}
 	return 1;
