@@ -4,7 +4,11 @@
 
 
 
-/*并查集的定义*/
+/*并查集的定义
+ *所谓并查集就是把集合初始拆分成n个子集，每个子集一个元素，元素都不同，通过满足某种关系一步一步合并成大子集 
+ *然后利用树的双亲节点表示法可以通过parent方便的顺藤摸瓜每个子集的根节点  
+ *并查集就是处理这些不相交子集的合并、查询问题的森林
+*/
 typedef struct PTNode//树的双亲表示法的节点 
 {
 	int data;//数据域 
@@ -34,15 +38,13 @@ typedef struct
 
 
 
-int InitMFSet(FILE* fp, MFSet* S);//初始化n个单元素子集，每个子集是一个节点，组成树 
+int InitMFSet(FILE* fp, MFSet* S);//特例初始化，初始化n个单元素子集，每个子集是一个节点，组成树或者森林 
 
-int FindMFSet(MFSet S, int i);//查找集合S中i所在子集的根节点，也就是i所在树的根节点 
-
-int FixMFSet(MFSet* S, int i);//找到i所在树的根节点，并把此树压缩到高为2 
+int FindMFSet(MFSet S, int i);//查找集合S中i所在子集的根节点，也就是i所在树的根节点，代表找到这个子集 
+int FixMFSet(MFSet* S, int i);//上面算法的改进，找到i所在树的根节点，并把此树压缩到高为2 
 
 int MergeMFSet(MFSet* S, int i, int j);//求不相交的Si和Sj的并集
-
-int MixMFSet(MFSet* S, int i, int j);//上面算法的改进
+int MixMFSet(MFSet* S, int i, int j);//上面算法的改进，合并后根节点域表示这个子集的元素个数的负数 
 
 int BuildRelationMFSet(FILE* fp, Relation* R);//建立二元等价关系 
 
