@@ -20,6 +20,7 @@ int Trial_CB(int i, int c[N][N])
 		printf("%d皇后的第%d种解法\n", N, ++order);
 		Output_CB(c);
 		printf("\n");
+		//PressEnter;//单步输出棋盘 
 	}
 	else
 	{
@@ -28,11 +29,9 @@ int Trial_CB(int i, int c[N][N])
 			c[i-1][j-1] = 1;//在某一行遍历放置棋子 
 			if(Layout_CB(i, j, c))//判断放置的是否合规 
 				Trial_CB(i+1, c);//递归放置每列棋子 
-			else
-				c[i-1][j-1] = 0;//不合规则移除，准备放这一行的下一个 
+			c[i-1][j-1] = 0;//移除，准备放这一行的下一个，这里不能用else，否则递归跳出来没法用这个删除 
 		}
 	}
-	return 1;
 }
 
 int Layout_CB(int x, int y, int c[N][N])
@@ -69,7 +68,7 @@ int Layout_CB(int x, int y, int c[N][N])
 	}
 	
 	m = x+1;
-	n = x+1;
+	n = y+1;
 	while(m<=N && n<=N)//检查右上 
 	{
 		if(c[m-1][n-1])
@@ -80,8 +79,58 @@ int Layout_CB(int x, int y, int c[N][N])
 	
 	m = x+1;
 	n = y-1;
-	while(m<=n && n>=1)//检查右下 
+	while(m<=N && n>=1)//检查右下 
 	{
-		
+		if(c[m-1][n-1])
+			return 0;
+		m++;
+		n--;
 	}
+	
+	m = x-1;
+	n = y+1;
+	while(m>=1 && n<=N)//检查左上 
+	{
+		if(c[m-1][n-1])
+			return 0;
+		m--;
+		n++;
+	}
+	return 1;
+}
+
+int Output_CB(int c[N][N])
+{
+	printf("┏");//画第一行边框 
+	for(int i=1; i<=N-1; i++)
+		printf("━┳");
+	printf("━┓\n");
+	
+	for(int i=1; i<=N; i++)
+	{
+		printf("┃");//画每行的棋子 
+		for(int j=1; j<=N; j++)
+		{
+			if(c[i-1][j-1]==1)
+				printf("●┃");
+			else
+				printf("  ┃");
+		}
+		printf("\n");
+		
+		if(i<N)//画内部的边框 
+		{
+			printf("┣");
+			for(int j=1; j<=N-1; j++)
+				printf("━╋");
+			printf("━┫\n");
+		}
+	}
+	
+	printf("┗");//画底部边框 
+	for(int i=1; i<=N-1; i++)
+		printf("━┻");
+	printf("━┛\n");
+	
+	return 1;
 }
