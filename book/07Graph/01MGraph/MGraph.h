@@ -36,7 +36,7 @@ typedef struct
 
 //全局变量 
 int Visited[21];//标志数组
-void (*VisitFunc)(char e);//函数指针变量
+void (*VisitFunc)(char e);//函数指针变量，要在DFS核心中使用Visit函数，又不声明，只能利用全局变量设置 
 
 
 
@@ -72,7 +72,7 @@ int InsertArc_M(MGraph *G, char e, char w, int vertexRelation, ...);//插入弧<e, 
 int DeleteArc_M(MGraph *G, char e, char w);
 
 void DFSTraverse_M(MGraph G, void(Visit)(char));
-void DFS_M(MGraph G, int i);//DFS核心函数，i代表访问下标 
+void DFS_M(MGraph G, int i);//DFS核心函数，i代表访问的元素的序号 
 
 int BFSTraverse_M(MGraph G, void(Visit)(char));
 

@@ -349,7 +349,7 @@ void DFSTraverse_M(MGraph G, void(Visit)(char))
 	for(int i=1; i<=G.vexNum; i++)
 	{
 		if(Visited[i]==0)//如果未访问，挨个访问节点 
-			DFS_M(G, i);
+			DFS_M(G, i);//通过递归，可以访问一根经上的顶点，也就是深度遍历，递归不下去时才跳出来运用这个套在外面的循环找到新的一根经 
 	}
 }
 
@@ -360,8 +360,7 @@ void DFS_M(MGraph G, int i)
 	VisitFunc(G.vertex[i]);//访问
 	
 	//w是第一邻接点，w存在，w向下一邻接点移动 
-	int w;
-	for(w=FirstAdjVertex_M(G, G.vertex[i]); w; w=NextAdjVertex_M(G, G.vertex[i], G.vertex[w]))
+	for(int w=FirstAdjVertex_M(G, G.vertex[i]); w; w=NextAdjVertex_M(G, G.vertex[i], G.vertex[w]))
 	{
 		if(Visited[w]==0)
 			DFS_M(G, w);
@@ -375,25 +374,25 @@ int BFSTraverse_M(MGraph G, void(Visit)(char))
 	
 	LinkQueue Q;//用队列实现广度优先遍历
 	InitQueue_L(&Q);
-	int e;//存放出队的元素 
 	
-	for(int i=1; i<=G.vexNum; i++)//遍历所有顶点 
+	for(int i=1; i<=G.vexNum; i++)//遍历所有顶点，这个遍历是留给不连通的图用的，连通的用不到，直接就BFS完了 
 	{
-		if(Visited[i]==0)//如果未访问，则访问 
+		if(Visited[i]==0)//如果未访问，则首次访问并入队一次，让队列保持有东西的状态，之后就可以一直递归了 
 		{
 			Visited[i] = 1;
 			Visit(G.vertex[i]);
 			EnQueue_L(&Q, i);//访问完标号入队
 			while(!QueueEmpty_L(Q))
 			{
-				DeQueue_L(&Q, &e);//如果队列有标号，就出队，遍历之后的邻接顶点 
+				int e;//存放出队的元素
+				DeQueue_L(&Q, &e);//如果队列有访问过的标号，就出队，遍历这个标号下一层的邻接顶点并访问、访问完入队 
 				for(int w=FirstAdjVertex_M(G, G.vertex[e]); w; w=NextAdjVertex_M(G, G.vertex[e], G.vertex[w]))
 				{
 					if(Visited[w]==0)//如果之后的未访问，则访问 
 					{
 						Visited[w] = 1;
 						Visit(G.vertex[w]);
-						EnQueue_L(&Q, w);//继续入队出队访问 
+						EnQueue_L(&Q, w);//访问过的继续入队 
 					} 
 				}
 			} 
@@ -401,7 +400,6 @@ int BFSTraverse_M(MGraph G, void(Visit)(char))
 	} 
 	return 1;
 }
-//之后写测试函数时手动模拟一遍BFS，把DFS的visit函数改写一下试试
 
 int Output_M(MGraph G)
 {
