@@ -47,6 +47,7 @@ int CreateUnDirectGraph_AML(FILE* fp, AMLGraph *G)
 	} 
 	return 1;
 }
+//研究创建邻接多重链表的过程 
 
 int LocateVertex_AML(AMLGraph G, char e)
 {
