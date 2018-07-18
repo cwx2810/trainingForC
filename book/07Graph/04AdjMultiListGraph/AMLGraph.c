@@ -14,7 +14,7 @@ int CreateUnDirectGraph_AML(FILE* fp, AMLGraph *G)
 	}
 	Scanf(fp, "%c", &tmp);//跳过换行符
 	
-	// 读取边，制作十字链表
+	// 读取边，制作邻接多重链表 
 	char start, end;
 	int order1, order2;
 	for(int i=1; i<=(*G).arcNum; i++) 
@@ -34,20 +34,19 @@ int CreateUnDirectGraph_AML(FILE* fp, AMLGraph *G)
 		p->headVex = order1;//对p的顶点序号赋值 
 		p->tailVex = order2;//对p的顶点序号赋值
 		 
-		p->headLink = (*G).vertex[order1].firstArc;//对p的头链域赋值，指向头顶点的邻接边 
-		(*G).vertex[order1].firstArc = p;//把p接入变为头顶点的邻接边 
+		p->headLink = (*G).vertex[order1].firstArc;//对p的头链域赋值，让其和头顶点的出边指针融合 
+		(*G).vertex[order1].firstArc = p;//把p接入变为头顶点的出边 
 		
-		p->tailLink = (*G).vertex[order2].firstArc;//对p的尾链域赋值，指向尾顶点的邻接边 
-		(*G).vertex[order2].firstArc = p;//把p接入变为尾顶点的邻接边 
+		p->tailLink = (*G).vertex[order2].firstArc;//对p的尾链域赋值，让其和尾顶点的出边指针融合 
+		(*G).vertex[order2].firstArc = p;//把p接入变为尾顶点的出边 
 		
 		if((*G).arcInfo==1)
 			Input_AML(fp, &(p->info)); 
 			
-		arcPtr[i] = p;//弧指针数组记录当前操作弧 
+		arcPtr[i] = p;//弧指针数组保存当前插入的弧 
 	} 
 	return 1;
 }
-//研究创建邻接多重链表的过程 
 
 int LocateVertex_AML(AMLGraph G, char e)
 {
@@ -65,7 +64,7 @@ int Output_AML(AMLGraph G)
 		return 0;
 	else
 	{
-		ClearMark(G);
+		ClearMark(G);//防止之前的函数用过，先重新设置为未访问 
 		
 		printf("顶点：");
 		for(int i=1; i<=G.vexNum; i++)
@@ -86,9 +85,9 @@ int Output_AML(AMLGraph G)
 						p->mark = Visit;
 					}
 					
-					if(p->headVex==i)//如果能对上头结点就往头结点遍历 
+					if(p->headVex==i)//如果该边头顶点还有其他邻接边，则遍历之 
 						p = p->headLink;
-					else
+					else			//否则遍历该边尾顶点的其他边 
 						p = p->tailLink;
 				}
 			}
