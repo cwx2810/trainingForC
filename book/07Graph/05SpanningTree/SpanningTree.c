@@ -62,9 +62,9 @@ int Print_CS(CSNode* T)
 {
 	typedef struct
 	{
-		char e;
-		int x, y;
-	}Node;
+		char e;//字母 
+		int x, y;//坐标 
+	}Node;//画出的孩子兄弟树矩阵的节点结构体 
 	
 	if(T)
 	{
@@ -72,6 +72,7 @@ int Print_CS(CSNode* T)
 		InitStack_Sq(&S);
 		
 		Push_Sq(&S, T);
+		//初始化坐标信息 
 		int row=0;
 		int col=0;
 		int row_max=0;
@@ -82,13 +83,13 @@ int Print_CS(CSNode* T)
 		while(!StackEmpty_Sq(S))
 		{
 			GetTop_Sq(S, &tmp);
-			
+			//给画图坐标赋值 
 			node[k].e = tmp->data;
 			node[k].x = col;
 			node[k].y = row;
 			k++;
 			
-			while(tmp->firstchild)
+			while(tmp->firstchild)//给画图坐标赋值孩子兄弟树的孩子，并压栈 
 			{
 				Push_Sq(&S, tmp->firstchild);
 				row++;
@@ -102,16 +103,16 @@ int Print_CS(CSNode* T)
 				k++;
 			}
 			
-			Pop_Sq(&S, &tmp);
+			Pop_Sq(&S, &tmp);//弹出最后一个孩子 
 			
-			if(tmp->nextsibling)
+			if(tmp->nextsibling)//如果其有兄弟，压栈兄弟，继续完善坐标信息 
 			{
 				Push_Sq(&S, tmp->nextsibling);
 				col++;
 			}
 			else
 			{
-				while(!StackEmpty_Sq(S))
+				while(!StackEmpty_Sq(S))//没有兄弟就继续弹栈直到找到某个孩子有兄弟，继续压栈 
 				{
 					Pop_Sq(&S, &tmp);
 					row--;
@@ -127,19 +128,19 @@ int Print_CS(CSNode* T)
 		}
 		
 		char a[100][100] = {};
-		for(int i=0; i<k; i++)
+		for(int i=0; i<k; i++)//此时小结构数组已经接受到了所有的坐标信息，将这些信息输出到二维数组中 
 			a[node[i].x][3*node[i].y] = node[i].e;
 		
-		for(int i=0; i<=col; i++)
+		for(int i=0; i<=col; i++)//打印出二维数组，同一行中的字母都是父节点和孩子，同一列的是兄弟 
 		{
 			for(int j=0; j<=3*row_max; j++)
 			{
 				if(a[i][j])
 					printf("%c", a[i][j]);
 				else
-					printf(".");
+					printf(".");//.相邻的字母是孩子 
 			}
-			printf("\n");
+			printf("\n");//换行相邻的字母是兄弟 
 		}
 	}
 	else
