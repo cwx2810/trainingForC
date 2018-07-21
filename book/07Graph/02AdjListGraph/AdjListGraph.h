@@ -41,6 +41,9 @@ typedef struct
 	GraphKind kind;//图类型  
 }ALGraph;
 
+//全局变量
+int Visited[21];//标志数组标志该节点是否被访问，后面的程序《求关节点》要用到 
+
 int CreateGraph_AL(FILE* fp, ALGraph *G);
 
 int CreateDirectGraph_AL(FILE* fp, ALGraph *G);

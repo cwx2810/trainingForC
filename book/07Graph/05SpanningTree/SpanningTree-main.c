@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 	
 	printf("创建并输出无向图\n");
 	{
-		FILE* fp = fopen("TestDataUnDirectGraph.txt", "r");
+		FILE* fp = fopen("TestDataUnDirectGraph1.txt", "r");
 		CreateGraph_M(fp, &G);
 		fclose(fp);
 		Output_M(G);
