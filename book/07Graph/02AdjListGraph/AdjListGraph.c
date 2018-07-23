@@ -156,5 +156,6 @@ int Output_AL(ALGraph G)
 int Input_AL(FILE* fp, ArcInfo* info)
 {
 	//本文档无弧信息
+	Scanf(fp, "%d", &(info->info));
 	return 1; 
 }
