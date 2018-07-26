@@ -68,6 +68,8 @@ int PrintLayout(SpaceNode* start, SpaceNode* pstart)
 	r = pstart;
 	printf("¿ÕÏĞ¿éÆğÖ¹·¶Î§£º|");
 	printf("%4d--%4d | ", r-pstart+1, r+r->size-pstart);
+	//printf("%d", r->rlink);
+	//printf("%d", pstart);
 	while(r->rlink!=pstart)
 	{
 		r = r->rlink;
