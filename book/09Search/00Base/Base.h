@@ -7,13 +7,13 @@ typedef struct
 {
 	int key;
 	float weight;
-}ElemType;//查找表元素类型 
+}ElemType;//查找表元素类型，就是类似(1，1.0)的小结构 
 
 typedef struct
 {
-	ElemType* elem;//基址
+	ElemType* elem;//基址，0号单元弃用，从1开始存key和weight 
 	int length; 
-}Table;//查找表 
+}Table;//查找表，无数小结构的组合 
 
 int CreateTable(FILE* fp, Table* T, int n);
 

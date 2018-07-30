@@ -80,5 +80,5 @@ int InOrderTraverseNonRecursive2(BiTNode* T, int(Visit)(char));
 
 int PostOrderTraverse(BiTNode* T, void(Visit)(char));
 
-//int PrintTree(BiTNode* T);
+int PrintTree(BiTNode* T);
 
