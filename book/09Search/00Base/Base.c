@@ -13,7 +13,7 @@ int CreateTable(FILE* fp, Table* T, int n)
 	{
 		if(Scanf(fp, "%d%f", &a, &b)==2)//如果能读到key和weight，则更新表T 
 		{
-			(*T).elem[i].key = i;
+			(*T).elem[i].key = a;
 			(*T).elem[i].weight = b;
 			(*T).length++;
 		}
