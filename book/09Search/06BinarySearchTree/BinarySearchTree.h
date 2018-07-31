@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "../../01intro/Status.h"
 #include "../../01intro/Scanf.c"
 #include "../00Base/Base.c"
@@ -32,3 +33,6 @@ int InOrderTraverse_BST(BSTNode* BST, void(Visit)(ElemType));
 
 int DeleteBST_Key(BSTNode* *BST, int key);//删除key 
 int DeleteBST_Ptr(BSTNode* *p);//删除的核心函数，删除p指向的节点 
+
+int PrintBST(BSTNode* T);
+int BSTDepth(BSTNode* T);

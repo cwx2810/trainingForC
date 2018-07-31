@@ -19,6 +19,9 @@ int main(int argc, char** argv)
 		CreateBSTree(&BST, T);
 		InOrderTraverse_BST(BST, PrintKey);
 		printf("\n");
+		printf("数的形状为\n");
+		PrintBST(BST);
+		printf("\n");
 	}
 	PressEnter;
 	
@@ -35,6 +38,9 @@ int main(int argc, char** argv)
 		printf("删除关键字24后的二叉排序树中序遍历输出为：\n");
 		DeleteBST_Key(&BST, 24);
 		InOrderTraverse_BST(BST, PrintKey);
+		printf("\n");
+		printf("数的形状为\n");
+		PrintBST(BST);
 		printf("\n");
 	}
 	PressEnter;

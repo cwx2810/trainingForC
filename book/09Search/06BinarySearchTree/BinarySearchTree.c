@@ -131,3 +131,61 @@ int DeleteBST_Ptr(BSTNode** p)
 	return 1;
 }
 
+int PrintBST(BSTNode* T)
+{
+	BSTNode a[100][100] = {};//用一个足够大的矩阵存储树 
+	
+	if(!T)
+		return 0;
+	else
+	{
+		int row = BSTDepth(T);//总行数 
+		int col = pow(2, row) - 1;//总列数，其实就是一共有几个节点2^h-1
+		for(int i=1; i<=row-1; i++)
+		{
+			for(int j=1; j<=pow(2, i-1); j++)
+			{
+				int m = (2*j-1)*pow(2, row-i);//当前行节点的相对位序 
+				int l = (4*j-3)*pow(2, row-i-1);//下一行节点的相对位序 
+				int r = (4*j-1)*pow(2, row-i-1);
+				
+				if(i==1)
+					a[i][m] = *T;//初始化 
+				
+				if(a[i][m].lchild)
+					a[i+1][l] = *(a[i][m].lchild);//下一行 
+				
+				if(a[i][m].rchild)
+					a[i+1][r] = *(a[i][m].rchild);//下一行 
+			}
+		} 
+		
+		for(int i=1; i<=row; i++)
+		{
+			for(int j=1; j<=col; j++)
+			{
+				if(a[i][j].data.key)
+					printf("%2d", a[i][j].data.key);
+				else
+					printf(" ");
+			}
+			printf("\n");
+		}
+		
+		return 1;
+	}
+}
+
+int BSTDepth(BSTNode* T)
+{
+	if(!T)
+		return 0;
+	else
+	{
+		int LeftDepth = BSTDepth(T->lchild);
+		int RightDepth = BSTDepth(T->rchild);
+		
+		return (LeftDepth > RightDepth ? LeftDepth : RightDepth) + 1;
+	}
+}
+
