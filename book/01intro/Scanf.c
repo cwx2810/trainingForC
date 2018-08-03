@@ -90,7 +90,7 @@ int Scanf(FILE *fp, char *format, ...)//返回每次读到的字符个数
 				while((tmp=getc(fp))!=EOF)
 				{
 					if(isprint(tmp) && tmp!=' ')
-						s[n+1] = tmp;
+						s[n++] = tmp;
 					else
 						break;
 				}
